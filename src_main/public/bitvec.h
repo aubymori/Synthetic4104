@@ -1,4 +1,4 @@
-//===== Copyright © 1996-2005, Valve Corporation, All rights reserved. ======//
+//===== Copyright ï¿½ 1996-2005, Valve Corporation, All rights reserved. ======//
 //
 // Purpose: 
 //
@@ -37,7 +37,19 @@ private:
 #define BITS_PER_INT		32
 
 #if _WIN32 && !defined(_X360)
-#include <intrin.h>
+#   pragma push_macro("_interlockedbittestandset")
+#   pragma push_macro("_interlockedbittestandreset")
+#   pragma push_macro("_interlockedbittestandset64")
+#   pragma push_macro("_interlockedbittestandreset64")
+#   define _interlockedbittestandset _local_interlockedbittestandset
+#   define _interlockedbittestandreset _local_interlockedbittestandreset
+#   define _interlockedbittestandset64 _local_interlockedbittestandset64
+#   define _interlockedbittestandreset64 _local_interlockedbittestandreset64
+#   include <intrin.h> // to force the header not to be included elsewhere
+#   pragma pop_macro("_interlockedbittestandreset64")
+#   pragma pop_macro("_interlockedbittestandset64")
+#   pragma pop_macro("_interlockedbittestandreset")
+#   pragma pop_macro("_interlockedbittestandset")
 #pragma intrinsic(_BitScanForward)
 #endif
 
