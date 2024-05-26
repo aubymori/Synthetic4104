@@ -1357,6 +1357,23 @@ void CAchievementMgr::Steam_OnUserStatsReceived( UserStatsReceived_t *pUserStats
 		{
 			DevMsg( "ISteamUserStats::GetAchievement failed for %s\n", pAchievement->GetName() );
 		}
+
+		if ( pAchievement->StoreProgressInSteam() )
+		{
+			int iValue;
+			char pszProgressName[1024];
+			Q_snprintf( pszProgressName, 1024, "%s_STAT", pAchievement->GetStat() );
+			bRet = SteamUserStats()->GetStat( gameID, pszProgressName, &iValue );
+			if ( bRet )
+			{
+				pAchievement->SetCount( iValue );		
+				pAchievement->EvaluateNewAchievement();
+			}
+			else
+			{
+				DevMsg( "ISteamUserStats::GetStat failed to get progress value from Steam for achievement %s\n", pszProgressName );
+			}
+		}
 	}
 
 	// send an event to anyone else who needs Steam user stat data

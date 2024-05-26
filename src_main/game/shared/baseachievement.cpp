@@ -37,6 +37,7 @@ CBaseAchievement::CBaseAchievement()
 	m_iAchievementID = 0;
 	m_iPointValue = 0;
 	m_bHideUntilAchieved = false;
+	m_bStoreProgressInSteam = false;
 	m_pVictimClassNameFilter = NULL;
 	m_pAttackerClassNameFilter = NULL;
 	m_pInflictorClassNameFilter = NULL;
@@ -52,6 +53,7 @@ CBaseAchievement::CBaseAchievement()
 	m_iProgressShown = 0;
 	m_bAchieved = false;
 	m_pAchievementMgr = NULL;
+	m_pszStat = NULL;
 }
 
 //-----------------------------------------------------------------------------

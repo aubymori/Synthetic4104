@@ -33,6 +33,7 @@ public:
 	void SetAchievementID( int iAchievementID ) { m_iAchievementID = iAchievementID; }
 	void SetName( const char *pszName ) { m_pszName = pszName; }
 	const char *GetName() { return m_pszName; }
+	const char *GetStat() { return m_pszStat?m_pszStat:GetName(); }
 	void SetFlags( int iFlags );
 	int GetFlags() { return m_iFlags; }
 	void SetGoal( int iGoal ) { m_iGoal = iGoal; }
@@ -43,6 +44,8 @@ public:
 	int	GetPointValue() { return m_iPointValue; }
 	bool ShouldHideUntilAchieved() { return m_bHideUntilAchieved; }
 	void SetHideUntilAchieved( bool bHide ) { m_bHideUntilAchieved = bHide; }
+	void SetStoreProgressInSteam( bool bStoreProgressInSteam ) { m_bStoreProgressInSteam = bStoreProgressInSteam; }
+	bool StoreProgressInSteam() { return m_bStoreProgressInSteam; }
 	virtual bool ShouldShowProgressNotification() { return true; }
 	virtual void OnPlayerStatsUpdate() {}
 
@@ -82,6 +85,7 @@ protected:
 	virtual void CalcProgressMsgIncrement();
 
 	const char *m_pszName;								// name of this achievement
+	const char *m_pszStat;								// stat this achievement uses
 	int m_iAchievementID;								// ID of this achievement
 	int	m_iFlags;										// ACH_* flags for this achievement
 	int	m_iGoal;										// goal # of steps to award this achievement
@@ -89,6 +93,7 @@ protected:
 	int m_iProgressMsgMinimum;							// the minimum progress needed before showing progress notification
 	int m_iPointValue;									// # of points this achievement is worth (currently only used for XBox Live)
 	bool m_bHideUntilAchieved;							// should this achievement be hidden until achieved?
+	bool m_bStoreProgressInSteam;						// should incremental progress be stored in Steam.  A counter with same name as achievement must be set up in Steam.
 	const char *m_pInflictorClassNameFilter;			// if non-NULL, inflictor class name to filter with
 	const char *m_pInflictorEntityNameFilter;			// if non-NULL, inflictor entity name to filter with
 	const char *m_pVictimClassNameFilter;				// if non-NULL, victim class name to filter with
